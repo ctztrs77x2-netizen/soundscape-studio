@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundScape Studio - Focus, Lofi & Ambient Soundscapes</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warm Linen Editorial Palette */
+            --bg-linen: #FAF9F6;
+            --panel-paper: #FFFFFF;
+            --border-clay: #E6E4DD;
+            --panel-hover: #F5F3EB;
+            
+            /* Earthy Nordic Accents */
+            --color-oak: #8C7A6B;
+            --color-slate: #5A6D7A;
+            --color-clay-pink: #BD7C64;
+            --color-sage: #6B7B6B;
+            
+            /* Typography */
+            --text-charcoal: #1D1E20;
+            --text-grey: #6E7073;
+            --text-light-grey: #A2A4A8;
+            
+            /* Layout & Shadows */
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --shadow-subtle: 0 8px 30px rgba(140, 122, 107, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-linen);
+            color: var(--text-charcoal);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            
+            /* Dots paper texture */
+            background-image: radial-gradient(#E5E2D9 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+        }
+
+        /* Organic Background Atmosphere */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .aurora-1 {
+            background: radial-gradient(circle, var(--color-oak) 0%, rgba(0,0,0,0) 80%);
+            width: 60vw;
+            height: 60vw;
+            top: -10vw;
+            left: -5vw;
+        }
+
+        .aurora-2 {
+            background: radial-gradient(circle, var(--color-slate) 0%, rgba(0,0,0,0) 80%);
+            width: 50vw;
+            height: 50vw;
+            bottom: -5vw;
+            right: -5vw;
+        }
+
+        /* Header / Nav */
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-mark {
+            width: 12px;
+            height: 12px;
+            background-color: var(--color-oak);
+            border-radius: 3px;
+            transform: rotate(45deg);
+            display: inline-block;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: var(--text-grey);
+        }
+
+        .nav-btn {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            color: var(--text-charcoal);
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--color-oak);
+            background-color: var(--panel-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1100px;
+            margin: 3rem auto 6rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .editorial-tag {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-oak);
+            border: 1px solid var(--color-oak);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            color: var(--text-charcoal);
+        }
+
+        h1 em {
+            font-family: 'Outfit', sans-serif;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--color-oak);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            max-width: 680px;
+            margin: 0 auto 3rem auto;
+            font-weight: 400;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--color-oak);
+            border: 1px solid var(--color-oak);
+            color: var(--bg-linen);
+            font-weight: 600;
+            padding: 1.1rem 2.2rem;
+            border-radius: var(--radius-sm);
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 25px rgba(140, 122, 107, 0.2);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background-color: #79685a;
+            border-color: #79685a;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(140, 122, 107, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            color: var(--text-charcoal);
+            font-weight: 600;
+            padding: 1.1rem 2.2rem;
+            border-radius: var(--radius-sm);
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--panel-hover);
+            border-color: var(--text-light-grey);
+            transform: translateY(-2px);
+        }
+
+        /* Extension Layout Mockup */
+        .mockup-outer {
+            max-width: 680px;
+            margin: 0 auto;
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            background-image: radial-gradient(#F5F3EB 1.2px, transparent 1.2px);
+            background-size: 16px 16px;
+        }
+
+        .mockup-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-clay);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mockup-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--border-clay);
+        }
+
+        .mockup-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-charcoal);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .mockup-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem 0.5rem;
+        }
+
+        /* Timer representation */
+        .mockup-timer {
+            text-align: center;
+            border: 1px solid var(--border-clay);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            background-color: var(--panel-paper);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+        }
+
+        .timer-time {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--text-charcoal);
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-light-grey);
+            margin-bottom: 1.5rem;
+        }
+
+        .timer-btn {
+            display: inline-block;
+            background-color: var(--color-oak);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            line-height: 42px;
+            color: #ffffff;
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(140, 122, 107, 0.15);
+        }
+
+        /* Sound Grid representation */
+        .mockup-soundgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .mockup-card {
+            border: 1px solid var(--border-clay);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1rem;
+            background-color: var(--panel-paper);
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .mockup-card.active {
+            border-color: var(--color-oak);
+            background-color: var(--panel-hover);
+        }
+
+        .mockup-card.active::before {
+            content: "";
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-oak);
+            border-radius: 50%;
+        }
+
+        .card-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .card-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-charcoal);
+        }
+
+        .slider-bar {
+            width: 80%;
+            height: 2px;
+            background-color: var(--border-clay);
+            margin: 10px auto 0 auto;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .slider-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 65%;
+            background-color: var(--color-oak);
+            border-radius: 2px;
+        }
+
+        .slider-fill.sage { background-color: var(--color-sage); }
+        .slider-fill.slate { background-color: var(--color-slate); }
+
+        /* Features Section */
+        .features {
+            max-width: 1100px;
+            margin: 8rem auto 4rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            padding: 3rem 2.5rem;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-oak);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--panel-hover);
+            border: 1px solid var(--border-clay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            color: var(--color-oak);
+        }
+
+        .feature-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-charcoal);
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            max-width: 1100px;
+            margin: 8rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin: 1rem 0 3.5rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-card {
+            background-color: var(--panel-paper);
+            border: 1px solid var(--color-oak);
+            border-radius: var(--radius-lg);
+            padding: 4.5rem 3rem;
+            max-width: 460px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 15px 45px rgba(140, 122, 107, 0.08);
+        }
+
+        .popular-badge {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--color-oak);
+            color: var(--bg-linen);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .price-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.6rem;
+            font-weight: 300;
+            margin: 1.5rem 0;
+            color: var(--text-charcoal);
+            letter-spacing: -0.05em;
+        }
+
+        .price-val span {
+            font-size: 1.1rem;
+            color: var(--text-light-grey);
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 3rem 0;
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .pricing-features li {
+            margin-bottom: 1.1rem;
+            color: var(--text-charcoal);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: "•";
+            color: var(--color-oak);
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-clay);
+            padding: 5rem 1.5rem;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            color: var(--text-grey);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .cta-group { flex-direction: column; gap: 1rem; }
+            .btn-primary, .btn-secondary { text-align: center; }
+            .mockup-soundgrid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aurora-bg">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+    </div>
+
+    <header>
+        <a href="#" class="logo">
+            <span class="logo-mark"></span>
+            SoundScape <span>Studio</span>
+        </a>
+        <a href="#pricing" class="nav-btn">Get Premium</a>
+    </header>
+
+    <section class="hero">
+        <div class="editorial-tag">Nordic Minimalist</div>
+        <h1>Earthy acoustics to <em>shape your environment</em></h1>
+        <p class="subtitle">A delicate, warm workspace companion designed in your browser. Blend soft autumn rain, rustic cafe background noise, and premium Lofi loops alongside a quiet Pomodoro focus timer.</p>
+        
+        <div class="cta-group">
+            <a href="https://chrome.google.com/webstore" class="btn-primary" target="_blank">Add to Chrome — It's Free</a>
+            <a href="#pricing" class="btn-secondary">View Pricing</a>
+        </div>
+
+        <div class="mockup-outer">
+            <div class="mockup-nav">
+                <div class="mockup-controls">
+                    <span class="mockup-dot"></span>
+                    <span class="mockup-dot"></span>
+                    <span class="mockup-dot"></span>
+                </div>
+                <div class="mockup-title">SoundScape Studio</div>
+                <div style="width: 42px;"></div>
+            </div>
+
+            <div class="mockup-body">
+                <div class="mockup-timer">
+                    <div class="timer-time">25:00</div>
+                    <div class="timer-label">Focus Session Active</div>
+                    <div class="timer-btn">▶</div>
+                </div>
+
+                <div class="mockup-soundgrid">
+                    <div class="mockup-card active">
+                        <div class="card-icon">🌧️</div>
+                        <div class="card-name">Autumn Rain</div>
+                        <div class="slider-bar">
+                            <div class="slider-fill"></div>
+                        </div>
+                    </div>
+                    <div class="mockup-card active">
+                        <div class="card-icon">☕</div>
+                        <div class="card-name">Nordic Café</div>
+                        <div class="slider-bar">
+                            <div class="slider-fill slate" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                    <div class="mockup-card">
+                        <div class="card-icon">🎧</div>
+                        <div class="card-name">Warm Lofi</div>
+                        <div class="slider-bar">
+                            <div class="slider-fill sage" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon-circle">⏱️</div>
+            <h3>Quiet Focus Timer</h3>
+            <p>Maintain cognitive stamina with clean, customizable interval work tracking. Manage focus and breaks directly inside any active tab.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon-circle">🪵</div>
+            <h3>Earthy Soundboards</h3>
+            <p>From crackling woodfires and deep forest winds to soft brown noise, mix up to 10+ layers of organic, high-fidelity loops.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon-circle">🎹</div>
+            <h3>Warm Lofi Loops</h3>
+            <p>Access acoustic, gentle instrumental loops and binaural beats specifically tailored to keep you calm and concentrated.</p>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="editorial-tag">Pricing</div>
+        <h2>One payment. Lifetime updates.</h2>
+        
+        <div class="pricing-card">
+            <div class="popular-badge">Permanent License</div>
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--color-oak); letter-spacing: -0.01em;">Premium Pass</h3>
+            <div class="price-val">$5<span>.00 / one-time</span></div>
+            <p style="color: var(--text-grey); margin-bottom: 2rem; font-size: 0.95rem;">Own the complete acoustic catalog and features forever.</p>
+            
+            <ul class="pricing-features">
+                <li>Unlock all 20+ Premium Lofi loops</li>
+                <li>Unlock Binaural & Isochronic brainwave beats</li>
+                <li>Unlock premium soundboards & custom mix presets</li>
+                <li>Access to all future sound catalogs & features</li>
+                <li>Lifetime permanent updates</li>
+            </ul>
+
+            <a href="https://soundscapestudio.lemonsqueezy.com/checkout/buy/e9d18e00-41a8-4850-a0dc-2d8d52a1dab6" class="btn-primary" style="display: block; text-align: center; font-size: 1rem; padding: 1rem;" target="_blank">Unlock Premium</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SoundScape Studio. All transactions are securely processed via Lemon Squeezy.</p>
+        <p style="margin-bottom: 1.25rem;">
+            <a href="terms.html" style="color: var(--color-oak); text-decoration: none; font-weight: 600; transition: var(--transition-smooth);" onmouseover="this.style.color='#79685a'" onmouseout="this.style.color='var(--color-oak)'">Terms & Conditions</a> 
+            · 
+            <a href="privacy.html" style="color: var(--color-oak); text-decoration: none; font-weight: 600; transition: var(--transition-smooth);" onmouseover="this.style.color='#79685a'" onmouseout="this.style.color='var(--color-oak)'">Privacy Policy</a>
+        </p>
+        <p style="font-size: 0.75rem; opacity: 0.5;">SoundScape Studio is an independent software application. Chrome and Chrome Web Store are trademarks of Google LLC.</p>
+    </footer>
+
+</body>
+</html>

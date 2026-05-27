@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - SoundScape Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warm Linen Editorial Palette */
+            --bg-linen: #FAF9F6;
+            --panel-paper: #FFFFFF;
+            --border-clay: #E6E4DD;
+            --panel-hover: #F5F3EB;
+            
+            /* Earthy Nordic Accents */
+            --color-oak: #8C7A6B;
+            --color-slate: #5A6D7A;
+            --color-clay-pink: #BD7C64;
+            --color-sage: #6B7B6B;
+            
+            /* Typography */
+            --text-charcoal: #1D1E20;
+            --text-grey: #6E7073;
+            --text-light-grey: #A2A4A8;
+            
+            /* Layout & Shadows */
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --shadow-subtle: 0 8px 30px rgba(140, 122, 107, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-linen);
+            color: var(--text-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            
+            /* Dots paper texture */
+            background-image: radial-gradient(#E5E2D9 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+        }
+
+        /* Header / Nav */
+        header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-mark {
+            width: 12px;
+            height: 12px;
+            background-color: var(--color-oak);
+            border-radius: 3px;
+            transform: rotate(45deg);
+            display: inline-block;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: var(--text-grey);
+        }
+
+        .nav-btn {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            color: var(--text-charcoal);
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--color-oak);
+            background-color: var(--panel-hover);
+        }
+
+        /* Editorial Reading Panel */
+        .content-panel {
+            max-width: 900px;
+            margin: 2rem auto 6rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .paper-card {
+            background-color: var(--panel-paper);
+            border: 1px solid var(--border-clay);
+            border-radius: var(--radius-lg);
+            padding: 4rem 3.5rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .editorial-tag {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-oak);
+            border: 1px solid var(--color-oak);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            color: var(--text-charcoal);
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            color: var(--text-light-grey);
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-clay);
+            padding-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem 0;
+            color: var(--text-charcoal);
+            letter-spacing: -0.01em;
+            border-left: 3px solid var(--color-oak);
+            padding-left: 12px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.5rem 0;
+            color: var(--text-charcoal);
+        }
+
+        p {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        ul li {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--color-oak);
+            position: absolute;
+            left: -10px;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-clay);
+            padding: 5rem 1.5rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            color: var(--text-grey);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .paper-card { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span class="logo-mark"></span>
+            SoundScape <span>Studio</span>
+        </a>
+        <a href="index.html" class="nav-btn">← Back to Site</a>
+    </header>
+
+    <main class="content-panel">
+        <div class="paper-card">
+            <div class="editorial-tag">Legal</div>
+            <h1>Terms & Conditions</h1>
+            <p class="last-updated">Last updated: May 27, 2026</p>
+
+            <p>Welcome to SoundScape Studio. These Terms & Conditions outline the rules and regulations for the use of our Chrome Extension and associated digital products.</p>
+            <p>By installing and using our product, you accept these terms in full. If you disagree with any part of these terms, please uninstall the extension immediately.</p>
+
+            <h2>1. Intellectual Property & License</h2>
+            <p>Unless otherwise stated, SoundScape Studio and/or its licensors own the intellectual property rights for all code, design, audio loops, synthesizers, and assets in the extension. All intellectual property rights are reserved.</p>
+            <p>You are granted a limited, personal, non-exclusive, non-transferable license to use SoundScape Studio strictly in accordance with these terms. You must not:</p>
+            <ul>
+                <li>Republish, copy, or redistribute code or audio assets from the extension.</li>
+                <li>Sell, rent, or sub-license access to the extension's premium tracks.</li>
+                <li>Decompile, reverse-engineer, or attempt to extract the source code of the extension.</li>
+            </ul>
+
+            <h2>2. Premium Purchases & Fulfillment</h2>
+            <p>We offer a one-time Premium Lifetime License Upgrade for $5.00 USD to unlock advanced ambient sound boards, offline capabilities, and premium Lofi audio tracks.</p>
+            <ul>
+                <li><strong>Merchant of Record:</strong> All digital transactions, payments, invoicing, and tax calculations are handled securely on our behalf by <strong>Lemon Squeezy</strong>.</li>
+                <li><strong>Fulfillment:</strong> Upon purchasing a Premium Upgrade through our Lemon Squeezy checkout link, you will instantly receive a unique <strong>License Key</strong>. Pasting this key into the extension unlocks your lifetime premium features instantly.</li>
+                <li><strong>Refund Policy:</strong> We stand by our product. If you are unsatisfied for any reason, you may request a full refund within 30 days of purchase directly through Lemon Squeezy support.</li>
+            </ul>
+
+            <h2>3. Privacy & Data Collection</h2>
+            <p>We believe in absolute data privacy. SoundScape Studio is designed from the ground up to protect your personal information:</p>
+            <ul>
+                <li><strong>Local-First Operations:</strong> The extension runs entirely in your local browser sandbox. We do not track, collect, or store your notes, task lists, browser history, or sound preferences on any external servers.</li>
+                <li><strong>Minimal API Pings:</strong> The only external API communication the extension performs is a secure POST request to the Lemon Squeezy API (`api.lemonsqueezy.com/v1/licenses/validate`) to verify the validity of your license key. No personal data is attached to this request.</li>
+                <li><strong>No Analytics or Ads:</strong> There are no third-party analytics trackers, cookies, or advertisement scripts running inside the extension.</li>
+            </ul>
+
+            <h2>4. Limitation of Liability</h2>
+            <p>SoundScape Studio is provided on an "as is" and "as available" basis. We make no representations or warranties of any kind, express or implied, as to the operation of the extension or the quality of the ambient audio. We will not be liable for any damages of any kind arising from the use of this extension.</p>
+
+            <h2>5. Changes to Terms</h2>
+            <p>We reserve the right to revise these terms at any time. By continuing to use the extension after changes are made, you agree to be bound by the revised terms.</p>
+
+            <h2>6. Contact Us</h2>
+            <p>If you have any questions about these Terms & Conditions or our privacy guidelines, please contact us by filing an issue in our open-source project repository.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SoundScape Studio. All transactions are securely processed via Lemon Squeezy.</p>
+        <p style="font-size: 0.75rem; opacity: 0.5;">SoundScape Studio is an independent software application. Chrome and Chrome Web Store are trademarks of Google LLC.</p>
+    </footer>
+
+</body>
+</html>

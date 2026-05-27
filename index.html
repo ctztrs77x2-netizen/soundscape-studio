@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoundScape Studio | Your Premium Ambient Focus Workspace</title>
+  <meta name="description" content="An immersive, premium focus workspace featuring an ambient sound mixer, dynamic Pomodoro timer, auto-saving notepad, and task checklist. Stay productive with offline-first sound synthesis.">
+  
+  <!-- Classical & Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Styling Sheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Floating Background Aurora Gradients -->
+  <div class="aurora-container" id="auroraContainer">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+
+  <!-- Central Dashboard Wrapper -->
+  <div class="dashboard-wrapper" id="dashboardWrapper">
+    
+    <!-- Header -->
+    <header class="app-header glass-card">
+      <div class="logo-container">
+        <div class="logo-icon-wrapper">
+          <svg class="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="10" stroke-opacity="0.1" />
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>SoundScape</h1>
+          <span class="logo-subtext">STUDIO</span>
+        </div>
+      </div>
+      
+      <!-- Right Header Actions -->
+      <div class="header-actions">
+        <!-- Live Clock -->
+        <div class="clock-widget glass-pill" id="liveClock">
+          00:00:00
+        </div>
+        
+        <!-- Toggle Widgets Control -->
+        <button class="icon-btn glass-pill" id="toggleUiBtn" title="Zen Mode (Hide/Show UI)">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z" />
+          </svg>
+          <span class="btn-text">Zen Mode</span>
+        </button>
+
+        <!-- Quick Settings Menu Trigger -->
+        <button class="icon-btn glass-pill" id="themeBtn" title="Customize Space Background">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+          </svg>
+          <span class="btn-text">Themes</span>
+        </button>
+        
+        <!-- Unlock Pro SaaS Button -->
+        <button class="pro-badge-btn glow-purple" id="unlockProBtn">
+          <svg class="icon star-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          <span>Unlock PRO</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Content -->
+    <main class="main-content">
+      
+      <!-- Left Column: Focus Hub (Widgets) -->
+      <section class="workspace-section focus-hub">
+        
+        <!-- Pomodoro Timer Card -->
+        <article class="glass-card timer-card" id="timerCard">
+          <div class="card-header">
+            <h2>Focus Session</h2>
+            <div class="session-counter" id="completedSessions">Sessions: 0</div>
+          </div>
+          
+          <div class="timer-display-container">
+            <!-- SVG Circular Progress Ring -->
+            <svg class="progress-ring" viewBox="0 0 200 200">
+              <circle class="progress-ring-bg" cx="100" cy="100" r="90" stroke-width="6" />
+              <circle class="progress-ring-fill" id="timerProgressCircle" cx="100" cy="100" r="90" stroke-width="6" stroke-dasharray="565.48" stroke-dashoffset="565.48" stroke-linecap="round"/>
+            </svg>
+            <div class="timer-text-overlay">
+              <div class="timer-digits" id="timerDisplay">25:00</div>
+              <div class="timer-state-label" id="timerStateLabel">GET READY</div>
+            </div>
+          </div>
+          
+          <!-- Timer Session Selector -->
+          <div class="timer-modes-tabs">
+            <button class="mode-tab active" data-mode="focus">Focus</button>
+            <button class="mode-tab" data-mode="short">Short Break</button>
+            <button class="mode-tab" data-mode="long">Long Break</button>
+          </div>
+          
+          <!-- Timer Action Controls -->
+          <div class="timer-controls">
+            <button class="btn-primary" id="timerPlayPauseBtn" aria-label="Play/Pause Session">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <span>Start</span>
+            </button>
+            
+            <button class="btn-secondary" id="timerResetBtn" aria-label="Reset Timer">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Notepad Card -->
+        <article class="glass-card notepad-card" id="notepadCard">
+          <div class="card-header">
+            <h2>Focus Notes</h2>
+            <div class="notepad-controls">
+              <!-- Full Screen Toggle -->
+              <button class="card-action-btn" id="fullScreenNotesBtn" title="Full Screen Writing Space">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3" />
+                </svg>
+              </button>
+              <!-- Export Notes -->
+              <button class="card-action-btn" id="exportNotesBtn" title="Export Notes as TXT">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+              </button>
+              <!-- Clear Notes -->
+              <button class="card-action-btn delete-action" id="clearNotesBtn" title="Clear All Text">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <div class="textarea-container">
+            <textarea id="focusNotepad" placeholder="Draft your thoughts, outlines, or coding steps here... (Auto-saves instantly)"></textarea>
+          </div>
+          
+          <div class="notepad-footer">
+            <span id="charCount">0 characters</span>
+            <span id="wordCount">0 words</span>
+          </div>
+        </article>
+
+        <!-- Task Checklist Card -->
+        <article class="glass-card checklist-card" id="checklistCard">
+          <div class="card-header">
+            <h2>Today's Quests</h2>
+            <button class="card-action-btn" id="clearCompletedTasksBtn" title="Remove Completed Quests">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Add Task Form -->
+          <form class="add-task-form" id="addTaskForm">
+            <input type="text" id="taskInput" placeholder="Add a focus quest..." required autocomplete="off">
+            <button type="submit" class="add-task-btn" aria-label="Add Quest">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Scrollable Task List -->
+          <div class="tasks-container">
+            <ul class="task-list" id="taskList">
+              <!-- Dynamic List Items -->
+            </ul>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Right Column: Soundscape Mixer -->
+      <section class="workspace-section soundscape-mixer">
+        
+        <!-- Master Control Dashboard -->
+        <article class="glass-card master-mixer-card">
+          <div class="master-header">
+            <div class="master-indicator">
+              <h2>Soundscape Mixer</h2>
+              <span class="active-sounds-indicator" id="activeSoundsCount">All sounds off</span>
+            </div>
+            
+            <!-- Global Stop All Button -->
+            <button class="btn-icon-only glass-pill" id="stopAllAudioBtn" title="Stop All Sounds" disabled>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Master Volume Slider -->
+          <div class="master-volume-container">
+            <div class="volume-slider-row">
+              <svg class="icon vol-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+              </svg>
+              <input type="range" class="modern-slider" id="masterVolumeSlider" min="0" max="100" value="80" aria-label="Master Volume">
+              <span class="volume-percentage" id="masterVolumePct">80%</span>
+            </div>
+          </div>
+
+          <!-- Quick Audio Presets Grid -->
+          <div class="presets-container">
+            <span class="presets-label">Atmosphere Presets:</span>
+            <div class="presets-grid">
+              <button class="preset-pill" data-preset="focus">📚 Focus</button>
+              <button class="preset-pill" data-preset="rainy-cafe">🌧️ Rainy Cafe</button>
+              <button class="preset-pill" data-preset="cosmic-sleep">🌌 Cosmic Sleep</button>
+              <button class="preset-pill" data-preset="clear">🧹 Clear All</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ambient Sound Cards Grid -->
+        <div class="soundscape-grid" id="soundscapeGrid">
+          
+          <!-- Sound Card 1: Rain -->
+          <div class="sound-card glass-card" data-sound-id="rain">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper rain-color">
+                <!-- Rain SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242M16 14v6M8 14v6M12 16v6" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Ambient Rain</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="50" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 2: Distant Thunder -->
+          <div class="sound-card glass-card" data-sound-id="thunder">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper thunder-color">
+                <!-- Thunder SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 8.58M13 11l-4 6h6l-4 6" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Soft Thunder</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="40" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 3: Ocean Waves -->
+          <div class="sound-card glass-card" data-sound-id="ocean">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper ocean-color">
+                <!-- Waves SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.6 2 5.1 2 2.5 0 2.5-2 5.1-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.6 2 5.1 2 2.5 0 2.5-2 5.1-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5.1-2 2.5 0 2.5 2 5.1 2 2.5 0 2.5-2 5.1-2 1.3 0 1.9.5 2.5 1" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Ocean Waves</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="50" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 4: Cozy Cafe -->
+          <div class="sound-card glass-card" data-sound-id="cafe">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper cafe-color">
+                <!-- Cafe SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM6 2v3M10 2v3M14 2v3" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Cozy Cafe</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="40" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 5: Crackling Fire -->
+          <div class="sound-card glass-card" data-sound-id="campfire">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper fire-color">
+                <!-- Fire SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Campfire</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="50" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 6: Morning Birds -->
+          <div class="sound-card glass-card" data-sound-id="birds">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper birds-color">
+                <!-- Birds SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4h3a1 1 0 0 1 1 1v3M16 4l4 4M16 4a8 8 0 0 0-8 8M12 12a4 4 0 0 0-4 4M2 18h3a1 1 0 0 1 1 1v3M2 18l4 4M2 18a8 8 0 0 0 8 8" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Morning Birds</h3>
+                <span class="sound-badge">Streaming</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="40" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 7: Brown Noise (Synthesizer generated) -->
+          <div class="sound-card glass-card" data-sound-id="brownnoise">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper synth-color">
+                <!-- Waveform SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10h3l3-7 3 18 3-14 3 6h3" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Brown Noise</h3>
+                <span class="sound-badge pro-badge">SYNTH</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="60" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 8: Deep Space Pad (Synthesizer generated) -->
+          <div class="sound-card glass-card" data-sound-id="spacepad">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper space-color">
+                <!-- Cosmic SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Cosmic Pad</h3>
+                <span class="sound-badge pro-badge">SYNTH</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="50" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 9: Lofi Beat Loop -->
+          <div class="sound-card glass-card" data-sound-id="lofi">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper music-color">
+                <!-- Music Note SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Lofi Beat</h3>
+                <div class="lofi-track-container">
+                  <span class="sound-badge" id="lofiTrackTitle">Streaming</span>
+                  <button class="lofi-skip-btn" id="lofiSkipBtn" title="Next Track" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="5 4 15 12 5 20 5 4" fill="currentColor"/>
+                      <line x1="19" y1="5" x2="19" y2="19" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="45" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 10: Alpha Focus Binaural Waves -->
+          <div class="sound-card glass-card" data-sound-id="alpha">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper synth-color">
+                <!-- Brainwave Pulse SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 12h3l2-6 3 12 2-9 2 5 4-2" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Alpha Focus</h3>
+                <span class="sound-badge pro-badge">Binaural 10Hz</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="35" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 11: Theta Meditation Binaural Waves -->
+          <div class="sound-card glass-card" data-sound-id="theta">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper space-color">
+                <!-- Lotus/Zen Ring SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  <path d="M2 12h20" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Theta Meditate</h3>
+                <span class="sound-badge pro-badge">Binaural 6Hz</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="35" disabled>
+            </div>
+          </div>
+
+          <!-- Sound Card 12: Delta Sleep Binaural Waves -->
+          <div class="sound-card glass-card" data-sound-id="delta">
+            <div class="card-audio-info">
+              <div class="sound-icon-wrapper music-color">
+                <!-- Crescent Moon SVG -->
+                <svg class="sound-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+              </div>
+              <div class="sound-details">
+                <h3>Delta Sleep</h3>
+                <span class="sound-badge pro-badge">Binaural 2.5Hz</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" class="sound-toggle">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+            <div class="card-volume-row">
+              <input type="range" class="sound-volume-slider modern-slider" min="0" max="100" value="35" disabled>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- Live Audio Waveform Visualizer -->
+        <article class="glass-card visualizer-card">
+          <div class="visualizer-header">
+            <h3>Frequency Spectrum</h3>
+            <div class="visualizer-mode" id="visualizerMode">Dynamic Spectrum</div>
+          </div>
+          <div class="visualizer-container">
+            <canvas id="audioVisualizer" height="60"></canvas>
+          </div>
+        </article>
+
+      </section>
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-links">
+        <span>© 2026 SoundScape Studio Inc. All Rights Reserved.</span>
+        <span>•</span>
+        <a href="#" id="openPrivacyBtn">Privacy & Terms</a>
+        <span>•</span>
+        <a href="#" id="openHelpBtn">Keyboard Shortcuts</a>
+      </div>
+      <div class="premium-callout">
+        <span>Running in <strong>FREE MODE</strong>. Unlock high-fidelity synthesis & offline mode.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- THEME SELECTOR POPOVER / MODAL -->
+  <div class="modal-backdrop" id="themeModalBackdrop">
+    <div class="theme-popover glass-card">
+      <div class="popover-header">
+        <h3>Choose Workspace Atmosphere</h3>
+        <button class="close-btn" id="closeThemeModalBtn">&times;</button>
+      </div>
+      <div class="theme-options-grid">
+        <button class="theme-option-card active" data-theme="aurora">
+          <div class="theme-preview theme-preview-aurora"></div>
+          <span>Neon Aurora</span>
+        </button>
+        <button class="theme-option-card" data-theme="cyberpunk">
+          <div class="theme-preview theme-preview-cyberpunk"></div>
+          <span>Cyberpunk Rain</span>
+        </button>
+        <button class="theme-option-card" data-theme="forest">
+          <div class="theme-preview theme-preview-forest"></div>
+          <span>Cozy Forest</span>
+        </button>
+        <button class="theme-option-card" data-theme="midnight">
+          <div class="theme-preview theme-preview-midnight"></div>
+          <span>Midnight Space</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRO UPGRADE MODAL (License Key Flow via Lemon Squeezy) -->
+
+  <!-- HELP MODAL / SHORTCUTS -->
+  <div class="modal-backdrop" id="helpModalBackdrop">
+    <div class="help-modal glass-card">
+      <div class="popover-header">
+        <h3>Keyboard Shortcuts & Help</h3>
+        <button class="close-btn" id="closeHelpModalBtn">&times;</button>
+      </div>
+      <div class="help-content">
+        <table class="shortcuts-table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Space</kbd></td>
+              <td>Start / Pause Pomodoro Timer</td>
+            </tr>
+            <tr>
+              <td><kbd>Esc</kbd></td>
+              <td>Exit Full Screen Focus Mode</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd> + <kbd>Z</kbd></td>
+              <td>Toggle Zen Mode (Hide UI controls)</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd> + <kbd>S</kbd></td>
+              <td>Stop All Audio Channels</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd> + <kbd>N</kbd></td>
+              <td>Focus Notepad Textarea</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-text-block">
+          <h4>Did you know?</h4>
+          <p>The ASMR keyboard click sound synthesizes a real mechanical key press using sine wave sweeps and noise transients dynamically in your browser! It plays only while you write in your notepad, keeping you in deep cognitive flow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Upgrade Modal -->
+  <div class="modal-overlay" id="premiumModal">
+    <div class="modal-content premium-modal">
+      <div class="modal-header">
+        <h2>✨ Unlock SoundScape Premium</h2>
+        <button class="icon-button close-modal" id="closePremiumModal" aria-label="Close modal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Take your focus to the next level with our premium audio features!</p>
+        <ul class="premium-features-list">
+          <li>✓ 17 Authentic offline Lo-Fi Tracks</li>
+          <li>✓ Procedural Audio Synthesizers (Brown Noise, Space Pads)</li>
+          <li>✓ Brainwave Entrainment (Alpha/Theta/Delta waves)</li>
+          <li>✓ Support independent development</li>
+        </ul>
+        <div class="premium-pricing">
+          <span class="price">$5.00</span>
+          <span class="billing">one-time payment</span>
+        </div>
+        <button class="primary-button cta-button" id="upgradeBtn">
+          Get a License Key ✨
+        </button>
+        
+        <div class="license-section">
+          <p class="license-label">Already have a License Key?</p>
+          <div class="license-input-group">
+            <input type="text" id="licenseKeyInput" class="license-input" placeholder="Paste your license key here..." autocomplete="off" spellcheck="false">
+            <button class="secondary-button" id="verifyLicenseBtn">Verify</button>
+          </div>
+          <p id="licenseMessage" class="license-message"></p>
+        </div>
+        
+        <p class="premium-footer">Payments secured by Lemon Squeezy.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="storage.js"></script>
+  <script src="audio.js"></script>
+  <script src="timer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
